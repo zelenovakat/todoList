@@ -1,25 +1,59 @@
 import React, { Component } from 'react';
 import Todos from './Todos'
+import AddTodo from './AddTodo'
 
+function updateObjectInArrayById(array, selectedItem) {
+  return array.map((item) => {
+    if (item.id !== selectedItem.id) {
+      // This isn't the item we care about - keep it as-is
+      return item
+    }
+
+    // Otherwise, this is the one we want - return an updated value
+    return {
+      ...item,
+      ...selectedItem
+    }
+  })
+}
 class App extends Component {
   state = {
     todos: [
-      {id: 1, content: "morning walk"},
-      {id: 2, content: "meeting with John"},
-      {id: 3, content: "Buy pizza from Pizzahut"},
+      {id: 1, content: "morning walk", status: "true"},
+      {id: 2, content: "meeting with John", status: "false"},
+      {id: 3, content: "Buy pizza from Pizzahut", status: "false"},
     ]
   }
-  deleteTodo = (id) => {
-    console.log(id);
-  }
   
+  
+
+
+  addTodo = (todo) => {
+   todo.id = Math.random();
+   let todos = [...this.state.todos, todo];
+   this.setState({
+     todos
+   })
+} 
+  
+  toogleStatus=(todoId) => {
+    const selectedTodo = this.state.todos.find((todo) => { return todo.id === todoId})
+
+    selectedTodo.status = ( selectedTodo.status === "true") ? "false" : "true"
+    this.setState((state) => {
+      return {todos: updateObjectInArrayById(state.todos, selectedTodo)};
+    })
+  }
   render () {
     return (
-      <div className="App">
+      <div className="todo-app container">
+        
        <h1 className="center black-text">Wednesday,22 Nov</h1>
        <h2 className="center blue-text">3 tasks</h2>
       
-       <Todos todos={this.state.todos} deleteTodo ={this.deleteTodo} />
+       <Todos todos={this.state.todos} toogleStatus={this.toogleStatus} />
+       <AddTodo addTodo={this.addTodo}/>
+      
       </div>
     );
   }
