@@ -11,6 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-.item-true {
+.todo-finished-true {
   text-decoration: line-through;
+}
+
+.collection-item:hover {
+  cursor: pointer;
 }
