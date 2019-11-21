@@ -1,19 +1,22 @@
 import React from "react";
+import UseAnimations from 'react-useanimations';
+import OnClick from './OnClick'
 
 
-
-const Todos = ({todos, deleteTodo, status}) => {
+const Todos = ({todos, toogleStatus, status}) => {
     const todolist = todos.length ? (
           todos.map(todo => {
-              return (
-                  <div className="collection-item" key={todo.id}>
-                      <span onClick={() => {deleteTodo(todo.id)}}>{todo.content}</span>
+              const todoClass = (todo.status === "true") ? "collection-item item-true" : "collection-item"
+             return (
+                  <div onClick={() => toogleStatus(todo.id)} className={todoClass} key={todo.id}>
+                     <OnClick />
+                      {todo.content}
                   </div>
               )
           })
-    ) : (
-        <p className="center">You have no todo"s left</p>
-    )
+    ) : 
+    (<p className="center">You have no todo"s left</p>)
+
     return (
         <div className="todos collection">
           {todolist}
