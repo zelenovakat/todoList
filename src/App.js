@@ -1,7 +1,7 @@
 import React from "react";
 import Todos from "./Todos";
 import AddTodo from "./AddTodo";
-import { updateObjectInArrayById } from "./helpers/utils";
+import { updateObjectInArrayById, formatDate } from "./helpers/utils";
 import { useLocalStorage } from "./helpers/UseLocalStorage";
 
 const defaultTodos = [
@@ -27,8 +27,8 @@ const App = () => {
 
   return (
     <div className="todo-app container">
-      <h1 className="center black-text">Wednesday,22 Nov</h1>
-      <h2 className="center blue-text">3 tasks</h2>
+      <h1 className="center black-text">{formatDate(new Date())}</h1>
+      <h2 className="center blue-text">{todos.length} tasks</h2>
 
       <Todos todos={todos} toggleStatus={toggleStatus} />
       <AddTodo addTodo={addTodo} />
