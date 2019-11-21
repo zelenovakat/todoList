@@ -1,44 +1,39 @@
-import React, { Component } from "react";
+import React from "react";
 import Todos from "./Todos";
 import AddTodo from "./AddTodo";
 import { updateObjectInArrayById } from "./helpers/utils";
+import { useLocalStorage } from "./helpers/UseLocalStorage";
 
-class App extends Component {
-  state = {
-    todos: [
-      { id: 1, content: "morning walk", status: "true" },
-      { id: 2, content: "meeting with John", status: "false" },
-      { id: 3, content: "Buy pizza from Pizzahut", status: "false" }
-    ]
-  };
+const defaultTodos = [
+  { id: 1, content: "morning walk", status: "true" },
+  { id: 2, content: "meeting with John", status: "false" },
+  { id: 3, content: "Buy pizza from Pizzahut", status: "false" }
+];
 
-  addTodo = todo => {
+const App = () => {
+  const [todos, setTodos] = useLocalStorage("todos", defaultTodos);
+
+  const addTodo = todo => {
     todo.id = Math.random();
-    let todos = [...this.state.todos, todo];
-    this.setState({
-      todos
-    });
+    const updatedTodos = [...todos, todo];
+    setTodos(updatedTodos);
   };
 
-  toggleStatus = todoId => {
-    const selectedTodo = this.state.todos.find(todo => todo.id === todoId);
-
+  const toggleStatus = todoId => {
+    const selectedTodo = todos.find(todo => todo.id === todoId);
     selectedTodo.status = selectedTodo.status === "true" ? "false" : "true";
-    this.setState(state => {
-      return { todos: updateObjectInArrayById(state.todos, selectedTodo) };
-    });
+    setTodos(updateObjectInArrayById(todos, selectedTodo))
   };
-  render() {
-    return (
-      <div className="todo-app container">
-        <h1 className="center black-text">Wednesday,22 Nov</h1>
-        <h2 className="center blue-text">3 tasks</h2>
 
-        <Todos todos={this.state.todos} toggleStatus={this.toggleStatus} />
-        <AddTodo addTodo={this.addTodo} />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="todo-app container">
+      <h1 className="center black-text">Wednesday,22 Nov</h1>
+      <h2 className="center blue-text">3 tasks</h2>
+
+      <Todos todos={todos} toggleStatus={toggleStatus} />
+      <AddTodo addTodo={addTodo} />
+    </div>
+  );
+};
 
 export default App;

@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // https://usehooks.com/useLocalStorage/
 export function useLocalStorage(key, initialValue) {
   // State to store our value
@@ -34,4 +36,3 @@ export function useLocalStorage(key, initialValue) {
 
   return [storedValue, setValue];
 }
-
