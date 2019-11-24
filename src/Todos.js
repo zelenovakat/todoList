@@ -1,27 +1,36 @@
 import React from "react";
-import UseAnimations from 'react-useanimations';
-import OnClick from './OnClick'
+import Checkbox from "@material-ui/core/Checkbox";
 
 
-const Todos = ({todos, toogleStatus, status}) => {
-    const todolist = todos.length ? (
-          todos.map(todo => {
-              const todoClass = (todo.status === "true") ? "collection-item item-true" : "collection-item"
-             return (
-                  <div onClick={() => toogleStatus(todo.id)} className={todoClass} key={todo.id}>
-                     <OnClick />
-                      {todo.content}
-                  </div>
-              )
-          })
-    ) : 
-    (<p className="center">You have no todo"s left</p>)
+const Todos = ({ todos, toggleStatus }) => {
+  const todolist = todos.length ? (
+    todos.map(todo => {
+      return (
+        <div
+          className={`collection-item todo-finished-${todo.status}`}
+          key={todo.id}
+          onClick={() => toggleStatus(todo.id)}
+        >
+          <Checkbox
+            checked={todo.status === "true"}
+            value="status"
+            color="primary"
+            inputProps={{
+              "aria-label": "todo status checkbox"
+            }}
+          />
+          <span>{todo.content}</span>
+        </div>
+      );
+    })
+  ) : (
+    <p className="center">You have no todo"s left</p>
+  );
+  return <div className="todos collection">{todolist}</div>;
+};
 
-    return (
-        <div className="todos collection">
-          {todolist}
-        </div>    
-    )
-}
 
-export default Todos
+
+
+export default Todos;
+

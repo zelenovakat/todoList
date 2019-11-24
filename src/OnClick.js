@@ -1,12 +1,12 @@
 
-import React from 'react';
+/* import React from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import UseAnimations from 'react-useanimations';
 
 
 export default function CheckBox() {
     const [state, setState] = React.useState({
-      checked: false,
+      checked: true,
     });
   
     const handleChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,12 +15,10 @@ export default function CheckBox() {
     };
   
     return (
-        <Checkbox
-        checked={state.checked}
-        onChange={handleChange('checked')}
-        value="checked"
-        color="primary" 
-        inputProps={{
-          'aria-label': 'secondary checkbox',}}       
-         />
-        )}
+    <p>
+      <label>
+        <input type="checkbox" checked="checked" />
+        <span></span>
+      </label>
+    </p>
+        )} */
