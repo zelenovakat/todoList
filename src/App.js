@@ -1,62 +1,45 @@
-import React, { Component } from 'react';
-import Todos from './Todos'
-import AddTodo from './AddTodo'
+import React from "react"
+import Todos from "./Todos"
+import AddTodo from "./AddTodo"
+import { updateObjectInArrayById, formatDate } from "./helpers/utils"
+import { useLocalStorage } from "./helpers/UseLocalStorage"
 
+const defaultTodos = [
+  { id: 1, content: "morning walk", status: "true" },
+  { id: 2, content: "meeting with John", status: "false" },
+  { id: 3, content: "Buy pizza from Pizzahut", status: "false" },
+]
 
-function updateObjectInArrayById(array, selectedItem) {
-  return array.map((item) => {
-    if (item.id !== selectedItem.id) {
-      // This isn't the item we care about - keep it as-is
-      return item
-    }
+const App = () => {
+  const [todos, setTodos] = useLocalStorage("todos", defaultTodos)
 
-    // Otherwise, this is the one we want - return an updated value
-    return {
-      ...item,
-      ...selectedItem
-    }
-  })
-}
-class App extends Component {
-  state = {
-    todos: [
-      {id: 1, content: "morning walk", status: "true"},
-      {id: 2, content: "meeting with John", status: "false"},
-      {id: 3, content: "Buy pizza from Pizzahut", status: "false"},
-    ]
+  const addTodo = (todo) => {
+    todo.id = Math.random()
+    const updatedTodos = [...todos, todo]
+    setTodos(updatedTodos)
   }
 
-  addTodo = (todo) => {
-   todo.id = Math.random();
-   let todos = [...this.state.todos, todo];
-   this.setState({
-     todos
-   })
+  const deleteTodo = (todoId) => {
+    console.log(todoId)
+    const todosWithoutOne = todos.filter((todo) => todo.id !== todoId)
+    setTodos(todosWithoutOne)
+  }
+
+  const toggleStatus = (id) => {
+    const selectedTodo = todos.find((todo) => todo.id === id)
+    selectedTodo.status = selectedTodo.status === "true" ? "false" : "true"
+    setTodos(updateObjectInArrayById(todos, selectedTodo))
+  }
+
+  return (
+    <div className="todo-app container">
+      <h1 className="center black-text">{formatDate(new Date())}</h1>
+      <h2 className="center blue-text">{todos.length} tasks</h2>
+
+      <Todos todos={todos} toggleStatus={toggleStatus} deleteTodo={deleteTodo} />
+      <AddTodo addTodo={addTodo} />
+    </div>
+  )
 }
 
-  toggleStatus=(todoId) => {
-    const selectedTodo = this.state.todos.find((todo) => todo.id === todoId)
-
-    selectedTodo.status = (selectedTodo.status === "true") ? "false" : "true"
-    this.setState((state) => {
-      return {todos: updateObjectInArrayById(state.todos, selectedTodo)};
-    })
-  }
-  render () {
-    return (
-      <div className="todo-app container">
-
-       <h1 className="center black-text">Wednesday,22 Nov</h1>
-       <h2 className="center blue-text">3 tasks</h2>
-
-       <Todos todos={this.state.todos} toggleStatus={this.toggleStatus} />
-       <AddTodo addTodo={this.addTodo}/>
-
-      </div>
-    );
-  }
-}
-
-
-
-export default App;
+export default App
