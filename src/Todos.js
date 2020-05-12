@@ -37,7 +37,10 @@ const Todos = ({ todos, toggleStatus, deleteTodo }) => {
 
 export default Todos
 
-const DeleteButton = styled.button``
+const DeleteButton = styled.button`
+  background: transparent;
+  border: 0;
+`
 const MainDiv = styled.div`
   display: flex;
   justify-content: space-between;
