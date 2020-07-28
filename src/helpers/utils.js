@@ -14,7 +14,7 @@ export function updateObjectInArrayById(array, selectedItem) {
 }
 
 export function formatDate(date) {
-  const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" }
+  const options = { weekday: "long", month: "long", year: "numeric", day: "numeric" }
 
   return date.toLocaleDateString("en-US", options)
 }
