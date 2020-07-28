@@ -3,6 +3,7 @@ import Todos from "./Todos"
 import AddTodo from "./AddTodo"
 import { updateObjectInArrayById, formatDate } from "./helpers/utils"
 import { useLocalStorage } from "./helpers/UseLocalStorage"
+import styled from "styled-components"
 
 const defaultTodos = [
   { id: 1, content: "morning walk", status: "true" },
@@ -32,14 +33,37 @@ const App = () => {
   }
 
   return (
-    <div className="todo-app container">
-      <h1 className="center black-text">{formatDate(new Date())}</h1>
-      <h2 className="center blue-text">{todos.length} tasks</h2>
-
-      <Todos todos={todos} toggleStatus={toggleStatus} deleteTodo={deleteTodo} />
-      <AddTodo addTodo={addTodo} />
-    </div>
+    <MaineWrapper>
+      <UpperWrapp>
+        <h4>My task</h4>
+        <FormatDate>{formatDate(new Date())}</FormatDate>
+        {/* <h6 className="blue-text">{todos.length} tasks</h6> */}
+      </UpperWrapp>
+      <MiddleLine></MiddleLine>
+      <BottomWrapp>
+        <Todos todos={todos} toggleStatus={toggleStatus} deleteTodo={deleteTodo} />
+        <AddTodo addTodo={addTodo} />
+      </BottomWrapp>
+    </MaineWrapper>
   )
 }
 
 export default App
+const UpperWrapp = styled.div`
+  margin: 0 15px;
+`
+const BottomWrapp = styled.div`
+  margin: 0 15px;
+`
+const MiddleLine = styled.div`
+  border-bottom: 2px solid #ded9d9;
+  margin: 10px 0;
+`
+
+const MaineWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const FormatDate = styled.p`
+  color: #ded9d9;
+`

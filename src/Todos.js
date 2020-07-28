@@ -6,10 +6,10 @@ import styled from "styled-components"
 
 const Todos = ({ todos, toggleStatus, deleteTodo }) => {
   const todolist = todos.length ? (
-    todos.map((todo) => {
+    todos.map((todo, i) => {
       return (
-        <MainDiv>
-          <div
+        <MainDiv key={i}>
+          <OneTodo
             className={`todo-finished-${todo.status}`}
             key={todo.id}
             onClick={() => toggleStatus(todo.id)}>
@@ -22,7 +22,7 @@ const Todos = ({ todos, toggleStatus, deleteTodo }) => {
               }}
             />
             <span>{todo.content}</span>
-          </div>
+          </OneTodo>
           <DeleteButton onClick={() => deleteTodo(todo.id)}>
             <FontAwesomeIcon icon={faTrashAlt} />
           </DeleteButton>
@@ -30,9 +30,9 @@ const Todos = ({ todos, toggleStatus, deleteTodo }) => {
       )
     })
   ) : (
-    <p>You have no todos </p>
+    <InputMessage>You have no todos </InputMessage>
   )
-  return <div className="todos collection">{todolist}</div>
+  return <TodosWrapper className="todos collection">{todolist}</TodosWrapper>
 }
 
 export default Todos
@@ -44,10 +44,24 @@ const DeleteButton = styled.button`
 const MainDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  min-width: 200px;
-  min-height: 50px;
-  align-items: center;
+  border: 2px solid #818cc3;
+  border-radius: 10px;
+  outline: none;
+  margin: 10px 0;
   div {
     font-size: 20px;
+  }
+`
+const InputMessage = styled.p`
+  color: #000000;
+`
+const TodosWrapper = styled.div`
+  border: none;
+  display: flex;
+  flex-direction: column;
+`
+const OneTodo = styled.div`
+  svg {
+    color: #4355a9;
   }
 `
