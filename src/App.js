@@ -1,9 +1,11 @@
 import React from "react"
 import Todos from "./Todos"
-import AddTodo from "./AddTodo"
+
 import { updateObjectInArrayById, formatDate } from "./helpers/utils"
 import { useLocalStorage } from "./helpers/UseLocalStorage"
 import styled from "styled-components"
+// import ProgressMobileStepper from "./helpers/ProgressMobileStepper"
+import AddButton from "./helpers/AddButton"
 
 const defaultTodos = [
   { id: 1, content: "morning walk", status: "true" },
@@ -37,12 +39,13 @@ const App = () => {
       <UpperWrapp>
         <h4>My task</h4>
         <FormatDate>{formatDate(new Date())}</FormatDate>
-        {/* <h6 className="blue-text">{todos.length} tasks</h6> */}
+
+        {/* <ProgressMobileStepper todos={todos} toggleStatus={toggleStatus} /> */}
       </UpperWrapp>
       <MiddleLine></MiddleLine>
       <BottomWrapp>
         <Todos todos={todos} toggleStatus={toggleStatus} deleteTodo={deleteTodo} />
-        <AddTodo addTodo={addTodo} />
+        <AddButton addTodo={addTodo} />
       </BottomWrapp>
     </MaineWrapper>
   )

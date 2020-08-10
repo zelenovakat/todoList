@@ -7,6 +7,7 @@ import styled from "styled-components"
 const Todos = ({ todos, toggleStatus, deleteTodo }) => {
   const todolist = todos.length ? (
     todos.map((todo, i) => {
+      console.log(todo)
       return (
         <MainDiv key={i}>
           <OneTodo
